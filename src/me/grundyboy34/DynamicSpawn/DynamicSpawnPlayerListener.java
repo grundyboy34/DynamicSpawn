@@ -38,7 +38,8 @@ public class DynamicSpawnPlayerListener extends PlayerListener{
   
     	event.setRespawnLocation(new Location(world,respawnpoints.get(0),respawnpoints.get(1),respawnpoints.get(2)));
     	} else {
-    		return;
+    		event.setRespawnLocation(player.getBedSpawnLocation());
+    		
     	}
     } else {
     	return;
