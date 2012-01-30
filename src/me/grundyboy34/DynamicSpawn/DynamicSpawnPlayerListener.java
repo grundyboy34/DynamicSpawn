@@ -31,6 +31,7 @@ public class DynamicSpawnPlayerListener extends PlayerListener{
     	String playername = player.getName(); 
     	
     	if (plugin.enabled) {
+    		if (player.getBedSpawnLocation() == null) {
     	plugin.config.load(plugin.configfile); 
     	ArrayList<Integer> respawnpoints = new ArrayList<Integer>();    	
     	respawnpoints = (ArrayList<Integer>) plugin.configsettings.getIntegerList(playername);      
@@ -39,6 +40,9 @@ public class DynamicSpawnPlayerListener extends PlayerListener{
     	} else {
     		return;
     	}
+    } else {
+    	return;
+    }
     }
     
     public void onPlayerJoin(PlayerJoinEvent event) {    	
