@@ -34,14 +34,14 @@ public class DynamicSpawnPlayerListener extends PlayerListener{
         final Block block = null;
     	
     	if (plugin.enabled) {
-    		if (player.getBedSpawnLocation().getBlock() != block.BED) {
+    		if (player.getBedSpawnLocation().getBlock().getTypeId() != block.BED.id) {
     	plugin.config.load(plugin.configfile); 
     	ArrayList<Integer> respawnpoints = new ArrayList<Integer>();    	
     	respawnpoints = (ArrayList<Integer>) plugin.configsettings.getIntegerList(playername);      
   
     	event.setRespawnLocation(new Location(world,respawnpoints.get(0),respawnpoints.get(1),respawnpoints.get(2)));
     	} else {    		
-    		event.setRespawnLocation(player.getBedSpawnLocation().subtract(2, 0, 2));
+    		event.setRespawnLocation(player.getBedSpawnLocation().subtract(1, 0, 1));
     		
     	}
     } else {
