@@ -4,6 +4,8 @@ package me.grundyboy34.DynamicSpawn;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.server.Block;
+
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
@@ -29,16 +31,17 @@ public class DynamicSpawnPlayerListener extends PlayerListener{
     	World world = player.getWorld();
     	Server server = player.getServer();
     	String playername = player.getName(); 
+        final Block block = null;
     	
     	if (plugin.enabled) {
-    		if (player.getBedSpawnLocation() == null) {
+    		if (player.getBedSpawnLocation().getBlock() != block.BED) {
     	plugin.config.load(plugin.configfile); 
     	ArrayList<Integer> respawnpoints = new ArrayList<Integer>();    	
     	respawnpoints = (ArrayList<Integer>) plugin.configsettings.getIntegerList(playername);      
   
     	event.setRespawnLocation(new Location(world,respawnpoints.get(0),respawnpoints.get(1),respawnpoints.get(2)));
-    	} else {
-    		event.setRespawnLocation(player.getBedSpawnLocation());
+    	} else {    		
+    		event.setRespawnLocation(player.getBedSpawnLocation().subtract(2, 0, 2));
     		
     	}
     } else {
