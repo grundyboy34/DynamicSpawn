@@ -15,14 +15,24 @@ public class Crypter {
 	   public static String Output;
 	    public String NumberCalc;	  
 	   
-	    
+	    public static void wait (int n){
+	        
+	        long t0, t1;
+
+	        t0 =  System.currentTimeMillis();
+
+	        do{
+	            t1 = System.currentTimeMillis();
+	        }
+	        while (t1 - t0 < n);
+	    }
 	    public int getX(String input) {
 	    	int a = Character.getNumericValue(encode(input).charAt(54)) + Character.getNumericValue(encode(input).charAt(36)) + Character.getNumericValue(encode(input).charAt(84) + Character.getNumericValue(encode(input).charAt(39)));
-	    	return a;
+	    	return a * 100;
 	    }
 	    public int getZ(String input) {
 	    	int b = Character.getNumericValue(encode(input).charAt(69)) + Character.getNumericValue(encode(input).charAt(97)) + Character.getNumericValue(encode(input).charAt(71) + Character.getNumericValue(encode(input).charAt(102)));
-	    	return b;
+	    	return b * 100;
 	    }
 	  
 	 public String encode(String input) {		

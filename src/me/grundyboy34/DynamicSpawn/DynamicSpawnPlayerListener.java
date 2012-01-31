@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.minecraft.server.Block;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
@@ -67,11 +68,16 @@ public class DynamicSpawnPlayerListener extends PlayerListener{
          } else 
         	 return;
          } else  if (!player.hasPlayedBefore()) {
-     		plugin.config.load(plugin.configfile);  
-    		
-     		ArrayList<Integer> loadedpoints = new ArrayList<Integer>();
-     		loadedpoints = (ArrayList<Integer>) plugin.configsettings.getIntegerList(playername);    	
-     		player.teleport(new Location(world,loadedpoints.get(0),loadedpoints.get(1),loadedpoints.get(2)));
+     		plugin.config.load(plugin.configfile); 
+    		ArrayList<Integer> loadedpoints = new ArrayList<Integer>();
+     		loadedpoints = (ArrayList<Integer>) plugin.configsettings.getIntegerList(playername); 
+     		     			
+       
+     		crypter.wait(500);
+     		Location spawnpoint = new Location(world,loadedpoints.get(0),loadedpoints.get(1),loadedpoints.get(2));
+     		player.teleport(spawnpoint);
+     		
+     		
           } else
         	 return;
          } else return;         
