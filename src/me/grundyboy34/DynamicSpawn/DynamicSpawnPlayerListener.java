@@ -42,7 +42,8 @@ public class DynamicSpawnPlayerListener extends PlayerListener{
     	event.setRespawnLocation(new Location(world,respawnpoints.get(0),respawnpoints.get(1),respawnpoints.get(2)));
     	} else if (player.getBedSpawnLocation().getBlock().getTypeId() == block.BED.id) {    		
     		event.setRespawnLocation(player.getBedSpawnLocation().subtract(1, 0, 1));    		
-    	}
+    	} else
+    		return;
     } else {
     	return;
     }
@@ -61,7 +62,7 @@ public class DynamicSpawnPlayerListener extends PlayerListener{
     		plugin.config.load(plugin.configfile);  
     		
     		ArrayList<Integer> loadedpoints = new ArrayList<Integer>();
-    		loadedpoints = (ArrayList<Integer>) plugin.configsettings.getIntegerList(playername);    	
+    		loadedpoints = (ArrayList<Integer>) plugin.configsettings.getIntegerList(playername);     		
     		player.teleport(new Location(world,loadedpoints.get(0),loadedpoints.get(1),loadedpoints.get(2)));
          } else 
         	 return;
