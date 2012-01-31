@@ -38,11 +38,34 @@ public class DynamicSpawnPlayerListener extends PlayerListener{
     		if (player.getBedSpawnLocation() == null || player.getBedSpawnLocation().getBlock().getTypeId() != block.BED.id){
     	plugin.config.load(plugin.configfile); 
     	ArrayList<Integer> respawnpoints = new ArrayList<Integer>();    	
-    	respawnpoints = (ArrayList<Integer>) plugin.configsettings.getIntegerList(playername);     
+    	respawnpoints = (ArrayList<Integer>) plugin.configsettings.getIntegerList(playername);    
   
+    	Location spawnpoint = new Location(world,respawnpoints.get(0),respawnpoints.get(1),respawnpoints.get(2));
+ 		if (spawnpoint.getChunk().isLoaded()) {
+ 		event.setRespawnLocation(spawnpoint);
+ 		} else if (!spawnpoint.getChunk().isLoaded()) {
+ 			do {
+ 				world.loadChunk(spawnpoint.getChunk());
+ 			}
+ 			while(!world.isChunkLoaded(spawnpoint.getChunk()));     			
+ 			event.setRespawnLocation(spawnpoint);
+ 		
+ 		}
     	event.setRespawnLocation(new Location(world,respawnpoints.get(0),respawnpoints.get(1),respawnpoints.get(2)));
-    	} else if (player.getBedSpawnLocation().getBlock().getTypeId() == block.BED.id) {    		
-    		event.setRespawnLocation(player.getBedSpawnLocation().subtract(1, 0, 1));    		
+    	} else if (player.getBedSpawnLocation().getBlock().getTypeId() == block.BED.id) { 
+     		
+     		Location spawnpoint = player.getBedSpawnLocation().subtract(1, 0, 1);
+     		if (spawnpoint.getChunk().isLoaded()) {
+     		event.setRespawnLocation(spawnpoint);
+     		} else if (!spawnpoint.getChunk().isLoaded()) {
+     			do {
+     				world.loadChunk(spawnpoint.getChunk());
+     			}
+     			while(!world.isChunkLoaded(spawnpoint.getChunk()));     			
+     			event.setRespawnLocation(spawnpoint);
+     		
+     		}     		
+    		  		
     	} else
     		return;
     } else {
@@ -64,23 +87,50 @@ public class DynamicSpawnPlayerListener extends PlayerListener{
     		
     		ArrayList<Integer> loadedpoints = new ArrayList<Integer>();
     		loadedpoints = (ArrayList<Integer>) plugin.configsettings.getIntegerList(playername);     		
-    		player.teleport(new Location(world,loadedpoints.get(0),loadedpoints.get(1),loadedpoints.get(2)));
+
+     	   do {
+     		   world.loadChunk(player.getLocation().getChunk());
+     	   }
+     	   while(!world.isChunkLoaded(player.getLocation().getChunk()));
+     	   
+     		Location spawnpoint = new Location(world,loadedpoints.get(0),loadedpoints.get(1),loadedpoints.get(2));
+     		if (spawnpoint.getChunk().isLoaded()) {     			
+     		player.teleport(spawnpoint);
+     		} else if (!spawnpoint.getChunk().isLoaded()) {
+     			do {
+     				world.loadChunk(spawnpoint.getChunk());
+     			}
+     			while(!world.isChunkLoaded(spawnpoint.getChunk()));     			
+     			player.teleport(spawnpoint);     		
+     		}
+     		
          } else 
         	 return;
          } else  if (!player.hasPlayedBefore()) {
      		plugin.config.load(plugin.configfile); 
     		ArrayList<Integer> loadedpoints = new ArrayList<Integer>();
-     		loadedpoints = (ArrayList<Integer>) plugin.configsettings.getIntegerList(playername); 
-     		     			
+     		loadedpoints = (ArrayList<Integer>) plugin.configsettings.getIntegerList(playername);      		     			
        
-     		crypter.wait(500);
+     		  do {
+        		   world.loadChunk(player.getLocation().getChunk());
+        	   }
+        	   while(!world.isChunkLoaded(player.getLocation().getChunk()));
      		Location spawnpoint = new Location(world,loadedpoints.get(0),loadedpoints.get(1),loadedpoints.get(2));
+     		if (spawnpoint.getChunk().isLoaded()) {     			
      		player.teleport(spawnpoint);
+     		} else if (!spawnpoint.getChunk().isLoaded()) {
+     			do {
+     				world.loadChunk(spawnpoint.getChunk());
+     			}
+     			while(!world.isChunkLoaded(spawnpoint.getChunk()));     			
+     			player.teleport(spawnpoint);
+     		}
      		
      		
           } else
         	 return;
-         } else return;         
+         } else 
+        	 return;         
     	}
 
     }

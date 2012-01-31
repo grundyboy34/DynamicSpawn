@@ -1,6 +1,6 @@
 name: DynamicSpawn
 main: me.grundyboy34.DynamicSpawn.DynamicSpawn
-version: 1.0.4
+version: 1.0.5
 description: Players no longer spawn at the world spawn.
 commands:
     dynamicspawn:
