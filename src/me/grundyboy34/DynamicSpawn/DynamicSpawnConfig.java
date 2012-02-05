@@ -2,6 +2,7 @@ package me.grundyboy34.DynamicSpawn;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -18,6 +19,14 @@ public DynamicSpawnConfig(File configfile) {
 	if (!configfile.exists()) {		
 		try {
 			plugin.configsettings.save(configfile);
+			ArrayList<Integer> list = new ArrayList<Integer>();
+			list.add(127);
+			list.add(64);
+			list.add(42);
+			add(configfile,"Global First SpawnPoint:", false);
+			add(configfile,"Global SpawnPoint:", false);
+			add(configfile,"Global SpawnPoint:", list);
+			add(configfile,"Global First SpawnPoint:", list);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

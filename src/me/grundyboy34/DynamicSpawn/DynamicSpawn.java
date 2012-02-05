@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.util.logging.Logger;
 
 
-
+import org.bukkit.Server;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -27,6 +28,7 @@ public class DynamicSpawn extends JavaPlugin {
 	public String plugindir;
 	public File configfile;
 	public static FileConfiguration configsettings;
+	public static Location customspawn , customfirstspawn;
 	
 	
 	
@@ -52,11 +54,13 @@ public class DynamicSpawn extends JavaPlugin {
        this.configsettings = getConfig();
        config = new DynamicSpawnConfig(configfile);       
     	myExecutor = new DynamicSpawnCommandExecutor(this);	
+    	config.load(configfile);
+        pm.registerEvents(playerListener, this);
+        pm.registerEvents(entityListener, this);
     	loadcmd();
         log.info("DynamicSpawn is enabled!");     
         
-        pm.registerEvent(Event.Type.PLAYER_JOIN,playerListener, Event.Priority.Highest, this);
-        pm.registerEvent(Event.Type.PLAYER_RESPAWN,playerListener,Event.Priority.Highest,this);
+       
         
         
     }
