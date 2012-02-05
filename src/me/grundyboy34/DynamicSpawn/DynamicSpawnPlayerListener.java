@@ -40,7 +40,7 @@ public class DynamicSpawnPlayerListener implements Listener {
 				.getBoolean("DynamicSpawn.GlobalSpawnpoint.enabled")
 				&& player.isOnline() && plugin.enabled) {
 			ArrayList<Integer> firstpoints = (ArrayList<Integer>) DynamicSpawn.configsettings
-					.getIntegerList("DynamicSpawn.GlobalSpawnpoint.cords");
+					.getIntegerList("DynamicSpawn.GlobalSpawnpoint.Cords");
 			event.setRespawnLocation(new Location(world, firstpoints.get(0),
 					firstpoints.get(1), firstpoints.get(2)));
 		} else {
@@ -73,9 +73,9 @@ public class DynamicSpawnPlayerListener implements Listener {
 
 		if (DynamicSpawn.configsettings
 				.getBoolean("DynamicSpawn.GlobalFirstSpawnpoint.enabled")
-				&& player.isOnline() && plugin.enabled) {
+				&& player.isOnline() && plugin.enabled && !player.hasPlayedBefore()) {
 			ArrayList<Integer> firstpoints = (ArrayList<Integer>) DynamicSpawn.configsettings
-					.getIntegerList("DynamicSpawn.GlobalFirstSpawnpoint.cords");
+					.getIntegerList("DynamicSpawn.GlobalFirstSpawnpoint.Cords");
 			player.teleport(new Location(world, firstpoints.get(0), firstpoints
 					.get(1), firstpoints.get(2)));
 		} else {

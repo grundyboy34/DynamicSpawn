@@ -1,10 +1,10 @@
 DynamicSpawn:
    GlobalFirstSpawnpoint:
       enabled: false
-      cords:
+      Cords:
    GlobalSpawnpoint:
       enabled: false
-      cords:
+      Cords:
    
    Players:
 

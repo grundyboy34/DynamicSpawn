@@ -18,10 +18,8 @@ public class DynamicSpawnConfig {
  		plugin = thePlugin;
 	if (!plugin.configfile.exists()) {
 		plugin.getConfig().options().copyDefaults(true);
-		addsection("DynamicSpawn.GlobalFirstSpawnpoint.cords");
-		addsection("DynamicSpawn.GlobalSpawnpoint.cords");
-		setsection("DynamicSpawn.GlobalFirstSpawnpoint.cords", intlist);
-		setsection("DynamicSpawn.GlobalSpawnpoint.cords",intlist);
+		setsection("DynamicSpawn.GlobalFirstSpawnpoint.Cords", intlist);
+		setsection("DynamicSpawn.GlobalSpawnpoint.Cords", intlist);
 		plugin.saveConfig();	
 	}
 	
