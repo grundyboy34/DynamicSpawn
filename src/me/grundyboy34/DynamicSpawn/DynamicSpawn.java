@@ -51,10 +51,9 @@ public class DynamicSpawn extends JavaPlugin {
     	PluginManager pm = this.getServer().getPluginManager(); 
     	plugindir = this.getDataFolder().getAbsolutePath();
        configfile = new File(plugindir + File.separator + "config.yml");  
-       this.configsettings = getConfig();
-       config = new DynamicSpawnConfig(configfile);       
+       DynamicSpawn.configsettings = getConfig();           
     	myExecutor = new DynamicSpawnCommandExecutor(this);	
-    	config.load(configfile);
+    	DynamicSpawnConfig.load(this);
         pm.registerEvents(playerListener, this);
         pm.registerEvents(entityListener, this);
     	loadcmd();

@@ -28,6 +28,7 @@ import org.bukkit.entity.Player;
     		    		break;
     		    	}
     		    }
+    		    
     			switch (commandID)  {    		
     			case 0:
     				if (args.length == 1) {
