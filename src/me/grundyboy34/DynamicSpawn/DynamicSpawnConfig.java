@@ -14,12 +14,18 @@ public class DynamicSpawnConfig {
 		ArrayList<Integer> intlist = new ArrayList<Integer>();
 		intlist.add(0,567);
 		intlist.add(1,64);
-		intlist.add(2,465);
+		intlist.add(2,465);		
  		plugin = thePlugin;
 	if (!plugin.configfile.exists()) {
 		plugin.getConfig().options().copyDefaults(true);
-		setsection("DynamicSpawn.GlobalFirstSpawnpoint.Cords", intlist);
-		setsection("DynamicSpawn.GlobalSpawnpoint.Cords", intlist);
+		setsection("DynamicSpawn.GlobalFirstSpawnpoint.Cords.X", intlist.get(0));
+		setsection("DynamicSpawn.GlobalFirstSpawnpoint.Cords.Y", intlist.get(1));
+		setsection("DynamicSpawn.GlobalFirstSpawnpoint.Cords.Z", intlist.get(2));
+		setsection("DynamicSpawn.GlobalSpawnpoint.Cords.X", intlist.get(0));
+		setsection("DynamicSpawn.GlobalSpawnpoint.Cords.Y", intlist.get(1));
+		setsection("DynamicSpawn.GlobalSpawnpoint.Cords.Z", intlist.get(2));
+		setsection("DynamicSpawn.GlobalSpawnpoint.Enabled", false);
+		setsection("DynamicSpawn.GlobalFirstSpawnpoint.Enabled", false);
 		plugin.saveConfig();	
 	}
 	

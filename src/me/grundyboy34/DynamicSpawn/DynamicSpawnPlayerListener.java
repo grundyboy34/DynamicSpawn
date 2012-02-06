@@ -35,21 +35,24 @@ public class DynamicSpawnPlayerListener implements Listener {
 		Server server = player.getServer();
 		String playername = player.getName();
 		final Block block = null;
+		boolean gsenabled = plugin.getConfig().getBoolean("DynamicSpawn.GlobalSpawnpoint.Enabled");
 
-		if (DynamicSpawn.configsettings
-				.getBoolean("DynamicSpawn.GlobalSpawnpoint.enabled")
-				&& player.isOnline() && plugin.enabled) {
-			ArrayList<Integer> firstpoints = (ArrayList<Integer>) DynamicSpawn.configsettings
-					.getIntegerList("DynamicSpawn.GlobalSpawnpoint.Cords");
+		if (gsenabled && player.isOnline() && plugin.enabled) {
+		ArrayList<Integer> firstpoints = new ArrayList<Integer>();
+		firstpoints.add(0,plugin.getConfig().getInt("DynamicSpawn.GlobalSpawnpoint.Cords.X"));
+		firstpoints.add(1,plugin.getConfig().getInt("DynamicSpawn.GlobalSpawnpoint.Cords.Y"));
+		firstpoints.add(2,plugin.getConfig().getInt("DynamicSpawn.GlobalSpawnpoint.Cords.Z"));
+			
 			event.setRespawnLocation(new Location(world, firstpoints.get(0),
 					firstpoints.get(1), firstpoints.get(2)));
 		} else {
 			if (plugin.enabled) {
 				if (player.getBedSpawnLocation() == null|| player.getBedSpawnLocation().getBlock().getTypeId() != Block.BED.id) {
 					ArrayList<Integer> respawnpoints = new ArrayList<Integer>();
-					respawnpoints = (ArrayList<Integer>) DynamicSpawn.configsettings
-							.getIntegerList("DynamicSpawn.Players."
-									+ playername);
+					respawnpoints.add(0, plugin.getConfig().getInt("DynamicSpawn.Players." + playername +".X"));
+					respawnpoints.add(1, plugin.getConfig().getInt("DynamicSpawn.Players." + playername +".Y"));
+					respawnpoints.add(2, plugin.getConfig().getInt("DynamicSpawn.Players." + playername +".Z"));
+									
 
 					event.setRespawnLocation(new Location(world, respawnpoints
 							.get(0), respawnpoints.get(1), respawnpoints.get(2)));
@@ -70,45 +73,41 @@ public class DynamicSpawnPlayerListener implements Listener {
 		World world = player.getWorld();
 		Server server = player.getServer();
 		String playername = player.getName();
+		boolean fsenabled = plugin.getConfig().getBoolean("DynamicSpawn.GlobalFirstSpawnpoint.Enabled");
 
-		if (DynamicSpawn.configsettings
-				.getBoolean("DynamicSpawn.GlobalFirstSpawnpoint.enabled")
-				&& player.isOnline() && plugin.enabled && !player.hasPlayedBefore()) {
-			ArrayList<Integer> firstpoints = (ArrayList<Integer>) DynamicSpawn.configsettings
-					.getIntegerList("DynamicSpawn.GlobalFirstSpawnpoint.Cords");
+		if (fsenabled && player.isOnline() && plugin.enabled && !player.hasPlayedBefore()) {
+			ArrayList<Integer> firstpoints = new ArrayList<Integer>();
+			firstpoints.add(0,plugin.getConfig().getInt("DynamicSpawn.GlobalFirstSpawnpoint.X"));
+			firstpoints.add(1,plugin.getConfig().getInt("DynamicSpawn.GlobalFirstSpawnpoint.Y"));
+			firstpoints.add(2,plugin.getConfig().getInt("DynamicSpawn.GlobalFirstSpawnpoint.Z"));
 			player.teleport(new Location(world, firstpoints.get(0), firstpoints
 					.get(1), firstpoints.get(2)));
 		} else {
 
 			if (player.isOnline() && plugin.enabled) {
-				if (!DynamicSpawn.configsettings
-						.contains("DynamicSpawn.Players." + playername)) {
-					DynamicSpawnConfig.addsection("DynamicSpawn.Players."
-							+ playername);
-					DynamicSpawnConfig.setsection("DynamicSpawn.Players."
-							+ playername, crypter.getlist(playername));
+				if (!plugin.getConfig().contains(playername)) {
+					ArrayList<Integer> playerpoints = crypter.getlist(playername);
+					DynamicSpawnConfig.addsection("DynamicSpawn.Players." + playername);
+					DynamicSpawnConfig.addsection("DynamicSpawn.Players." + playername + ".X");
+					DynamicSpawnConfig.addsection("DynamicSpawn.Players." + playername + ".Y");
+					DynamicSpawnConfig.addsection("DynamicSpawn.Players." + playername + ".Z");
+					DynamicSpawnConfig.setsection("DynamicSpawn.Players." + playername + ".X", playerpoints.get(0));
+					DynamicSpawnConfig.setsection("DynamicSpawn.Players." + playername + ".Y",playerpoints.get(1));
+					DynamicSpawnConfig.setsection("DynamicSpawn.Players." + playername + ".Z",playerpoints.get(2));
 					plugin.saveConfig();
 					if (!player.hasPlayedBefore()) {
 						
 
 						ArrayList<Integer> loadedpoints = new ArrayList<Integer>();
-						loadedpoints = (ArrayList<Integer>) DynamicSpawn.configsettings
-								.getIntegerList("DynamicSpawn.Players."
-										+ playername);
+						loadedpoints.add(0, plugin.getConfig().getInt("DynamicSpawn.Players."+playername+".X"));
+						loadedpoints.add(1, plugin.getConfig().getInt("DynamicSpawn.Players."+playername+".Y"));
+						loadedpoints.add(2, plugin.getConfig().getInt("DynamicSpawn.Players."+playername+".Z"));
+						
 						player.teleport(new Location(world,
 								loadedpoints.get(0), loadedpoints.get(1),
 								loadedpoints.get(2)));
 					} else
 						return;
-				} else if (!player.hasPlayedBefore()) {
-					
-
-					ArrayList<Integer> loadedpoints = new ArrayList<Integer>();
-					loadedpoints = (ArrayList<Integer>) DynamicSpawn.configsettings
-							.getIntegerList("DynamicSpawn.Players."
-									+ playername);
-					player.teleport(new Location(world, loadedpoints.get(0),
-							loadedpoints.get(1), loadedpoints.get(2)));
 				} else
 					return;
 			} else
