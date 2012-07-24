@@ -1,8 +1,6 @@
 package me.grundyboy34.DynamicSpawn;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.server.Block;
 
 import org.bukkit.Location;
@@ -13,12 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerListener;
-import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
-
-import sun.security.krb5.Config;
 
 public class DynamicSpawnPlayerListener implements Listener {
 	public DynamicSpawn plugin;
