@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 public class DynamicSpawnCommandExecutor implements CommandExecutor {
 
 	private DynamicSpawn plugin;
-	private DynamicSpawnConfig config;
 	private int commandID;
 
 	public DynamicSpawnCommandExecutor(DynamicSpawn plugin) {
@@ -35,28 +34,30 @@ public class DynamicSpawnCommandExecutor implements CommandExecutor {
 
 			switch (commandID) {
 			case 0:
+			case 1:
 				if (args.length != 1) {
 					return false;
 				}
 				if (args[0].equalsIgnoreCase("on")) {
 					if (!plugin.enabled) {
 						plugin.enabled = true;
-						;
 						sender.sendMessage("DynamicSpawn enabled!");
-						return true;
 					} else {
 						sender.sendMessage("DynamicSpawn is already enabled!");
-						return true;
 					}
+					return true;
 				} else if (args[0].equalsIgnoreCase("off")) {
 					if (plugin.enabled) {
 						plugin.enabled = false;
 						sender.sendMessage("DynamicSpawn disabled!");
-						return true;
 					} else {
 						sender.sendMessage("DynamicSpawn is already disabled!");
-						return true;
 					}
+					return true;
+				} else if (args[0].equalsIgnoreCase("reloadConf")) {
+					plugin.reloadConfig();
+					sender.sendMessage("Config reloaded!");
+					return true;
 				}
 				break;
 			default:

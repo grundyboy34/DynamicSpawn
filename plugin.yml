@@ -1,9 +1,13 @@
 name: DynamicSpawn
 main: me.grundyboy34.DynamicSpawn.DynamicSpawn
-version: 1.0.5
+version: 1.0.9
 description: Players no longer spawn at the world spawn.
 commands:
     dynamicspawn:
-        description: Choose to turn the plugin on or off
+        description: Choose to turn the plugin on, off, or to reload the config file
         permission: DynamicSpawn.DynamicSpawn
-        usage: /dynamicspawn [on/off]
+        usage: /dynamicspawn [on/off/reloadConf]
+    ds:
+        description: Shortcut for dynamicspawn command
+        permission: DynamicSpawn.DynamicSpawn
+        usage: /ds [on/off/reloadConf]
